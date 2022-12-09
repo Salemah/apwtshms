@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Http\Request;
@@ -39,3 +40,12 @@ Route::get('/doctor/list',[DoctorController::class,'index']);
 Route::post('/doctor/add',[DoctorController::class,'store']);
 Route::post('/doctor/delete/{id}',[DoctorController::class,'doctorDelete']);
 Route::post('/doctor/update/{id}',[DoctorController::class,'update']);
+//instructor route
+Route::post('/instructor/add',[InstructorController::class,'store']);
+Route::get('/instructor',[InstructorController::class,'index']);
+Route::post('/instructor/delete/{id}',[InstructorController::class,'instructorDelete']);
+
+//sanitarybooth route
+Route::post('/SanitaryBooth/add',[SanitarboothController::class,'store']);
+Route::get('/SanitaryBooth',[SanitaryboothController::class,'index']);
+Route::post('/SanitaryBooth/delete/{id}',[SanitaryboothController::class,'SanitaryBoothDelete']);

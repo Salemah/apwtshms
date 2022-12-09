@@ -36,6 +36,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+        // |regex:/^([0-9\s\-\+\(\)]*)$/|max:14|min:11
         $validator = Validator::make(
             $request->all(),
             [
@@ -43,7 +44,7 @@ class RegistrationController extends Controller
                 'email' => 'required|email',
                 'password' => 'required|min:6',
                 'confirmpassword' => 'required|same:password',
-                'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|max:14|min:11',
+                'phone' => 'required',
                 'age' => 'required',
                 'emergency_contact' => 'required',
                 'address' => 'required',
@@ -63,9 +64,8 @@ class RegistrationController extends Controller
             ]);
         }
         else {
-           
-            $admin = new User();
 
+            $admin = new User();
             $admin->name = $request->name;
             $admin->email = $request->email;
             $admin->phone = $request->phone;
@@ -74,8 +74,8 @@ class RegistrationController extends Controller
             $admin->emergency_contact = $request->emergency_contact;
             $admin->address = $request->address;
             $admin->user_type = 2; //registration always as a user
-
-            if($admin->save()){
+            $admin->save();
+            if($admin){
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Registration Successfully',
