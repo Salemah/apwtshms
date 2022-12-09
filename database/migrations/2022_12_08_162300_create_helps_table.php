@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('victim_phonenum')->nullable();
             $table->string('victim_age')->nullable();
             $table->string('victim_emergencycontact')->nullable();
+            $table->string('status')->nullable();
             $table->string('victim_currentlocation')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();

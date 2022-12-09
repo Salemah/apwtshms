@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('victim_age')->nullable();
             $table->string('victim_screenshot')->nullable();
             $table->string('victim_description')->nullable();
+            $table->string('status')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->softDeletes();

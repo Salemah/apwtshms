@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('booth_location')->nullable();
             $table->string('booth_padstock')->nullable();
             $table->string('order_padforbooth')->nullable();
+            $table->string('status')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->softDeletes();

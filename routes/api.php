@@ -33,7 +33,9 @@ Route::post('/registration',[RegistrationController::class,'store']);
 // help route
 Route::get('/helplist',[HelpController::class,'index']);
 Route::post('/help/Delete/{id}',[HelpController::class,'helpDelete']);
+Route::post('/help/approve/{id}',[HelpController::class,'helpApprove']);
 //doctor route
 Route::get('/doctor/list',[DoctorController::class,'index']);
 Route::post('/doctor/add',[DoctorController::class,'store']);
 Route::post('/doctor/delete/{id}',[DoctorController::class,'doctorDelete']);
+Route::post('/doctor/update/{id}',[DoctorController::class,'update']);

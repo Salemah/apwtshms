@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('instructor_name');
             $table->string('instructor_phonenum')->nullable();
             $table->string('course_time')->nullable();
+            $table->string('status')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('doctor_phonenum')->nullable();
             $table->string('specialist_at')->nullable();
             $table->string('available_time')->nullable();
+            $table->string('status')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->softDeletes();

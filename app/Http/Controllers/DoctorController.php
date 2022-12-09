@@ -111,7 +111,47 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'doctor_name' => 'required|min:4|max:20',
+                'doctor_phonenum' => 'required',
+                'specialist_at' => 'required',
+                'available_time' => 'required',
+
+
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        }
+        else {
+
+            $doctor =contact_doctor::find($request->id);
+            $doctor->doctor_name = $request->doctor_name;
+            $doctor->doctor_phonenum = $request->doctor_phonenum;
+            $doctor->specialist_at = $request->specialist_at;
+            $doctor->available_time = $request->available_time;
+
+            if($doctor->update()){
+                return response()->json([
+                    'success' => 'success',
+                    'message' => 'Doctor Update Successfully',
+                ]);
+                // return response()->json([
+                //     'success' => 'success',
+                //     'message' => 'Doctor Update Successfully',
+                // ]);
+            }
+            else{
+                return response()->json([
+                    'status' => 'failed',
+                    'failed' => 'Doctor Update Failed',
+                ]);
+            }
+        }
     }
 
     /**

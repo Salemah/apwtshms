@@ -28,6 +28,16 @@ class HelpController extends Controller
             return response()->json(["msg" => "notfound"], 404);
         }
     }
+    public function helpApprove(Request $request)
+    {
+        $help = help::find($request->id);
+        $help->status = "Approve";
+        if ($help->update()) {
+            return response()->json(["success" => " Help Approve Succesfull"], 200);
+        } else {
+            return response()->json(["msg" => "notfound"], 404);
+        }
+    }
 
 
     /**
