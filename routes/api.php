@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Http\Request;
@@ -22,6 +24,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/login',[LoginController::class,'login'])->name('login');
 Route::post('/login',[LoginController::class,'loginSubmit']);
+Route::post('/logout',[LoginController::class,'logout']);
 
 Route::get('/registration',[RegistrationController::class,'index'])->name('registration');
 Route::post('/registration',[RegistrationController::class,'store']);
+
+//
+// help route
+Route::get('/helplist',[HelpController::class,'index']);
+Route::post('/help/Delete/{id}',[HelpController::class,'helpDelete']);
+//doctor route
+Route::get('/doctor/list',[DoctorController::class,'index']);
+Route::post('/doctor/add',[DoctorController::class,'store']);
+Route::post('/doctor/delete/{id}',[DoctorController::class,'doctorDelete']);

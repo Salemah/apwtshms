@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('contact_doctors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('age')->nullable();
-            $table->string('emergency_contact')->nullable();
-            $table->string('address')->nullable();
-            $table->string('user_type')->nullable()->comment('1 = Admin / 2 =User');
+            $table->string('doctor_name');
+            $table->string('doctor_phonenum')->nullable();
+            $table->string('specialist_at')->nullable();
+            $table->string('available_time')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -36,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('contact_doctors');
     }
 };

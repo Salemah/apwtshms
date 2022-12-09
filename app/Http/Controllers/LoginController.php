@@ -133,23 +133,21 @@ class LoginController extends Controller
                         'user_type' => $user->user_type,
                     ]);
                 }
+
+            }
+            else {
+                return response()->json([
+                    'status' => 'notFound',
+                    'message' => 'User not Found',
+                ]);
             }
         }
-
-        // $admin = Admin::where('email',$request->email)
-        //                     ->where('password',$request->password)
-        //                     ->first();
-
-        // // return $teacher;
-        // if($admin){
-        //     $request->session()->put('user',$admin->name);
-        //     return redirect()->route('adminDash');
-        // }
-        // return back();
     }
     public function logout(){
-        session()->forget('user');
-        return redirect()->route('login');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Logged out successfully!'
+        ]);
     }
 
 }

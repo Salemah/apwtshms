@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Models\help;
+use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class HelpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,21 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $help = help::get();
+        if ($help) {
+            return response()->json($help, 200);
+       }
     }
+    public function helpDelete(Request $request)
+    {
+        $help = help::find($request->id);
+        if ($help->delete()) {
+            return response()->json(["success" => " Help Request Delete Succesfull"], 200);
+        } else {
+            return response()->json(["msg" => "notfound"], 404);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -31,10 +43,10 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCourseRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCourseRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +54,10 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
         //
     }
@@ -53,10 +65,10 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit($id)
     {
         //
     }
@@ -64,11 +76,11 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCourseRequest  $request
-     * @param  \App\Models\Course  $course
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,24 +88,11 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy($id)
     {
         //
-    }
-    public function courseTeacher(){
-
-        $c = Course::where('c_code','CSC101')->first();
-        // return $c->teacherId;
-        //belongsto
-        // return $c->teacher;
-        if ($c) {
-            return response()->json($c, 200);
-       }
-        //Eloquent
-        // return $c->assignedTeacher();
-
     }
 }

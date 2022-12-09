@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('sanitary_booths', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('age')->nullable();
-            $table->string('emergency_contact')->nullable();
-            $table->string('address')->nullable();
-            $table->string('user_type')->nullable()->comment('1 = Admin / 2 =User');
+            $table->string('booth_location')->nullable();
+            $table->string('booth_padstock')->nullable();
+            $table->string('order_padforbooth')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('sanitary_booths');
     }
 };

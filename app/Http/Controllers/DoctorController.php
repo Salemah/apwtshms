@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\contact_doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RegistrationController extends Controller
+class DoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,10 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        //
+        $doctor =contact_doctor::get();
+        if($doctor){
+            return response()->json($doctor,200);
+        }
     }
 
     /**
@@ -39,21 +42,11 @@ class RegistrationController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|min:4|max:20',
-                'email' => 'required|email',
-                'password' => 'required|min:6',
-                'confirmpassword' => 'required|same:password',
-                'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|max:14|min:11',
-                'age' => 'required',
-                'emergency_contact' => 'required',
-                'address' => 'required',
+                'doctor_name' => 'required|min:4|max:20',
+                'doctor_phonenum' => 'required',
+                'specialist_at' => 'required',
+                'available_time' => 'required',
 
-            ],
-            [
-                'phone.required' => 'Phone is required!',
-                'phone.regex' => 'Invalid phone number!',
-                'phone.max' => 'Number should 11 characters!',
-                'confirmpassword.same' => 'password missmatched'
 
             ]
         );
@@ -63,28 +56,24 @@ class RegistrationController extends Controller
             ]);
         }
         else {
-           
-            $admin = new User();
 
-            $admin->name = $request->name;
-            $admin->email = $request->email;
-            $admin->phone = $request->phone;
-            $admin->password = $request->password;
-            $admin->age = $request->age;
-            $admin->emergency_contact = $request->emergency_contact;
-            $admin->address = $request->address;
-            $admin->user_type = 2; //registration always as a user
+            $doctor = new contact_doctor();
 
-            if($admin->save()){
+            $doctor->doctor_name = $request->doctor_name;
+            $doctor->doctor_phonenum = $request->doctor_phonenum;
+            $doctor->specialist_at = $request->specialist_at;
+            $doctor->available_time = $request->available_time;
+
+            if($doctor->save()){
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Registration Successfully',
+                    'message' => 'Doctor Add Successfully',
                 ]);
             }
             else{
                 return response()->json([
                     'status' => 'failed',
-                    'failed' => 'Registration Failed',
+                    'failed' => 'Doctor Add Failed',
                 ]);
             }
         }
@@ -131,8 +120,13 @@ class RegistrationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function doctorDelete(Request $request)
     {
-        //
+        $doctor = contact_doctor::find($request->id);
+        if ($doctor ->delete()) {
+            return response()->json(["success" => " Doctor  Delete Succesfull"], 200);
+        } else {
+            return response()->json(["msg" => "notfound"], 404);
+        }
     }
 }
